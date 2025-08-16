@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LoginBaseApp.Views.AddContactPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="AddContactPage"
+    BackgroundColor="White"
+    FlowDirection="RightToLeft">
+    <ScrollView>
+        <Grid>
+
+            <VerticalStackLayout Style="{StaticResource DefaultLayout}" VerticalOptions="Start">
+                <Button
+                    BackgroundColor="Transparent"
+                    Command="{Binding NavBackCommand}"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Start"
+                    Text="&lt;חזרה"
+                    TextColor="white" />
+                <Border
+                    Padding="5"
+                    BackgroundColor="#33ffffff"
+                    HeightRequest="200"
+                    Stroke="#ccc"
+                    StrokeShape="Rectangle 100"
+                    WidthRequest="200">
+                    <Grid BackgroundColor="Transparent">
+                        <Image
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Aspect="AspectFill"
+                            HeightRequest="190"
+                            Source="{Binding Avatar, TargetNullValue='avatar_default.png'}"
+                            WidthRequest="190">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ChangePhotoAvatarCommand}" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Padding="5"
+                            BackgroundColor="#66000000"
+                            HorizontalOptions="Center"
+                            Text="שנה תמונה"
+                            VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+
+                <Entry Placeholder="שם" Text="{Binding FullName}" />
+                <Entry Placeholder="טלפון" Text="{Binding PhoneNumber}" />
+
+                <Entry
+                    Grid.Column="0"
+                    Placeholder="כתובת"
+                    Text="{Binding Address}" />
+
+                <Entry Placeholder="דואר אלקטרוני" Text="{Binding Email}" />
+
+                <DatePicker
+                    Date="{Binding BirthDate}"
+                    FontSize="18"
+                    TextColor="black" />
+
+                <Picker
+                    Title="בחר כלי נגינה"
+                    BackgroundColor="{StaticResource SecondaryColor}"
+                    ItemDisplayBinding="{Binding Name}"
+                    ItemsSource="{Binding Instruments}"
+                    SelectedItem="{Binding SelectedInstrument}" />
+                <Button
+                    Command="{Binding AddContactFromDeviceCommand}"
+                    Style="{StaticResource ButtonNoBg}"
+                    Text="הבא נתונים של איש קשר מהטלפון" />
+                <Label
+                    IsVisible="{Binding MessageIsVisible}"
+                    Style="{StaticResource MessageLabelError}"
+                    Text="{Binding ErrorMsg}" />
+                <Button
+                    Command="{Binding SaveUserDataCommand}"
+                    IsEnabled="{Binding CanSave}"
+                    Style="{StaticResource EldanButton}"
+                    Text="הוסף" />
+
+            </VerticalStackLayout>
+            <Grid
+                HorizontalOptions="Fill"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Fill">
+                <BoxView
+                    BackgroundColor="{StaticResource Gray100}"
+                    HorizontalOptions="Fill"
+                    Opacity="0.8"
+                    VerticalOptions="Fill" />
+                <Border
+                    Margin="20"
+                    Padding="20"
+                    BackgroundColor="{StaticResource OffBlack}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <VerticalStackLayout>
+                        <ActivityIndicator IsRunning="{Binding IsBusy}" Color="{StaticResource Amber600}" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontFamily="ArialBold"
+                            FontSize="Medium"
+                            HorizontalOptions="Center"
+                            Text="עדכון ..."
+                            TextColor="{StaticResource Amber900}"
+                            VerticalOptions="Center" />
+
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

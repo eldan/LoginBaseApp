@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="LoginBaseApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:LoginBaseApp.Views"
+    xmlns:viewmodels="clr-namespace:LoginBaseApp.ViewModels"
+    Title="LoginBaseApp"
+    x:DataType="viewmodels:AppShellViewModel"
+    FlowDirection="RightToLeft">
+
+
+
+    <FlyoutItem Title="ראשי" Icon="logo.png">
+        <ShellContent
+            Title="רשימת אנשי קשר"
+            ContentTemplate="{DataTemplate local:UserListPage}"
+            Route="UserListPage" />
+        <ShellContent
+            Title="הוסף איש קשר"
+            ContentTemplate="{DataTemplate local:AddContactPage}"
+            Route="AddContactPage" />
+        <ShellContent
+            Title="בניית הלהקה"
+            ContentTemplate="{DataTemplate local:BandsPage}"
+            IsVisible="{Binding IsAdmin}"
+            Route="BandsPage" />
+    </FlyoutItem>
+
+
+    <MenuItem Command="{Binding LogoutCommand}" Text="יציאה" />
+    <!--  add flyout for simple user withou the option to edit/remove/add contacts  -->
+</Shell>

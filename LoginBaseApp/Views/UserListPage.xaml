@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LoginBaseApp.Views.UserListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:LoginBaseApp.Models"
+    xmlns:viewmodels="clr-namespace:LoginBaseApp.ViewModels"
+    Title="UserListPage"
+    x:DataType="viewmodels:UserListPageViewModel"
+    FlowDirection="RightToLeft"
+    Style="{StaticResource BGPageGradient}">
+
+    <Grid Margin="15" RowDefinitions="50,*,50">
+
+        <Grid ColumnDefinitions="*,50">
+            <SearchBar
+                Grid.Column="0"
+                Placeholder="חפש משימה"
+                SearchCommand="{Binding TypingFilterCommand}"
+                SearchCommandParameter="{Binding Source={x:RelativeSource Self}, Path=Text}"
+                Text="{Binding SearchText, Mode=TwoWay}"
+                TextColor="White" />
+            <Button
+                Grid.Column="1"
+                Background="Transparent"
+                Command="{Binding ClearFilterCommand}"
+                FontFamily="MaterialSymbols"
+                FontSize="25"
+                Text="{StaticResource IconFilter_alt_off}"
+                TextColor="White" />
+        </Grid>
+
+        <RefreshView
+            Grid.Row="1"
+            Command="{Binding LoadListCommand}"
+            IsRefreshing="{Binding IsBusy}"
+            VerticalOptions="FillAndExpand">
+            <CollectionView
+                ItemsSource="{Binding Users}"
+                SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
+                SelectionChangedCommand="{Binding ShowDetailsPageCommand}"
+                SelectionMode="Single">
+
+                <CollectionView.EmptyView>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            Text="אין משתמשים."
+                            TextColor="Gray" />
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            Text="גרור כלפי מטה לרענון."
+                            TextColor="Gray" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:User">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItem
+                                    Command="{Binding DeleteUserCommand, Source={x:RelativeSource AncestorType={x:Type viewmodels:UserListPageViewModel}, Mode=FindAncestorBindingContext}}"
+                                    CommandParameter="{Binding .}"
+                                    IsEnabled="True">
+                                    <SwipeItem.IconImageSource>
+                                        <FontImageSource Glyph="{StaticResource IconDelete}">
+                                            <FontImageSource.FontFamily>MaterialSymbols</FontImageSource.FontFamily>
+
+                                        </FontImageSource>
+                                    </SwipeItem.IconImageSource>
+                                </SwipeItem>
+                                <SwipeItem Command="{Binding Path=ShowDetailUserCommand, Source={x:RelativeSource AncestorType={x:Type viewmodels:UserListPageViewModel}}, x:DataType='viewmodels:UserListPageViewModel'}">
+
+                                    <SwipeItem.IconImageSource>
+                                        <FontImageSource Glyph="{StaticResource IconInfo_i}">
+                                            <FontImageSource.FontFamily>MaterialSymbols</FontImageSource.FontFamily>
+
+                                        </FontImageSource>
+                                    </SwipeItem.IconImageSource>
+                                </SwipeItem>
+                            </SwipeView.RightItems>
+                            <Border
+                                Margin="5"
+                                Padding="10"
+                                BackgroundColor="White"
+                                HeightRequest="65"
+                                Stroke="Transparent"
+                                StrokeShape="RoundRectangle 8">
+                                <Grid
+                                    Background="white"
+                                    ColumnDefinitions="50,50,*"
+                                    RowDefinitions="Auto,Auto">
+                                    <Image
+                                        Grid.RowSpan="2"
+                                        Grid.Column="0"
+                                        Aspect="AspectFill"
+                                        HeightRequest="30"
+                                        Source="{Binding Instrument.Picture, TargetNullValue='solkey.png'}"
+                                        WidthRequest="30" />
+                                    <Image
+                                        Grid.RowSpan="2"
+                                        Grid.Column="1"
+                                        Aspect="AspectFill"
+                                        HeightRequest="45"
+                                        Source="{Binding Avatar, TargetNullValue='avatar_default.png'}"
+                                        WidthRequest="45" />
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        Padding="0,0,10,0"
+                                        FontSize="20"
+                                        Text="{Binding FullName}"
+                                        TextColor="{StaticResource PrimaryColor}"
+                                        VerticalOptions="Start" />
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        Padding="0,0,10,0"
+                                        FontSize="14"
+                                        Text="{Binding PhoneNumber}"
+                                        TextColor="{StaticResource PrimaryColor}" />
+                                </Grid>
+                            </Border>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+        <!--
+        <Button
+            Grid.Row="2"
+            Background="{StaticResource PrimaryColor}"
+            Command="{Binding AddContactCommand}"
+            CornerRadius="50"
+            FontSize="Large"
+            HeightRequest="50"
+            Text="+"
+            WidthRequest="50" />
+        -->
+    </Grid>
+
+</ContentPage>

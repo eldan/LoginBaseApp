@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LoginBaseApp.Views.RegisterPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:view="clr-namespace:LoginBaseApp.Views"
+    xmlns:viewmodels="clr-namespace:LoginBaseApp.ViewModels"
+    Title="RegisterPage"
+    x:DataType="viewmodels:RegisterPageViewModel"
+    FlowDirection="RightToLeft"
+    IsBusy="{Binding IsBusy}"
+    Style="{StaticResource BGPageGradient}">
+
+    <VerticalStackLayout Style="{StaticResource DefaultLayout}">
+
+        <!--  כותרת  -->
+        <Image HeightRequest="60" Source="logo.png" />
+        <Label
+            Style="{StaticResource HeaderLabel}"
+            Text="iBand - בנה ת'בנד"
+            TextColor="{StaticResource SecondaryColor}" />
+
+        <Label Style="{StaticResource HeaderLabel}" Text="הרשמה" />
+
+        <!--  שם משתמש  -->
+        <Entry Placeholder="שם משתמש" Text="{Binding Username}" />
+
+
+        <!--  סיסמה עם כפתור צפייה  -->
+        <Grid
+            Padding="0"
+            ColumnDefinitions="*,Auto"
+            VerticalOptions="Center">
+            <Entry
+                IsPassword="{Binding IsPassword}"
+                Placeholder="סיסמה"
+                Text="{Binding Password}" />
+            <Button
+                Margin="5,0,0,0"
+                Padding="0"
+                BackgroundColor="Transparent"
+                Command="{Binding ShowPasswordCommand}"
+                FontFamily="MaterialSymbols"
+                FontSize="24"
+                HorizontalOptions="End"
+                Text="{Binding ShowPasswordIcon}"
+                TextColor="#333333"
+                VerticalOptions="Center" />
+        </Grid>
+
+
+
+        <!--  full name  -->
+        <Entry Placeholder="שם מלא" Text="{Binding FullName}" />
+
+
+        <!--  כתובת  -->
+        <Entry Placeholder="כתובת" Text="{Binding Address}" />
+
+        <!--  email  -->
+        <Entry Placeholder="דואר אלקטרוני" Text="{Binding Email}" />
+
+
+        <!--  טלפון  -->
+        <Entry Placeholder="טלפון" Text="{Binding PhoneNumber}" />
+
+        <HorizontalStackLayout VerticalOptions="Center">
+            <!--  תאריך לידה  -->
+            <DatePicker
+                Date="{Binding BirthDate}"
+                FontSize="18"
+                TextColor="White" />
+
+            <!--  - עברית מתחרבשת אבל זה פועל - תווית של גיל  -->
+
+            <Label
+                Padding="20,0,0,0"
+                FontSize="20"
+                Text="{Binding CurrentAge, StringFormat='גילך הוא  {0}'}"
+                TextColor="white"
+                VerticalOptions="Center" />
+
+        </HorizontalStackLayout>
+
+
+        <!--  כפתור הרשמה  -->
+        <Button
+            Command="{Binding RegisterCommand}"
+            Style="{StaticResource EldanButton}"
+            Text="הרשמה" />
+        <!--  הודעות שגיעה  -->
+
+        <Label
+            IsVisible="{Binding MessageIsVisible}"
+            Style="{StaticResource MessageLabelError}"
+            Text="{Binding ErrorMsg}" />
+        <Button
+            BackgroundColor="Transparent"
+            Command="{Binding LinkLoginCommand}"
+            Text="יש לך כבר חשבון?" />
+    </VerticalStackLayout>
+</ContentPage>
+

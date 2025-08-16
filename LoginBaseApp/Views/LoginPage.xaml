@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LoginBaseApp.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:LoginBaseApp.Converters"
+    xmlns:view="clr-namespace:LoginBaseApp.Views"
+    xmlns:viewmodels="clr-namespace:LoginBaseApp.ViewModels"
+    Title="LoginPage"
+    x:DataType="viewmodels:LoginPageViewModel"
+    FlowDirection="RightToLeft"
+    IsBusy="{Binding IsBusy}"
+    Style="{StaticResource BGPageGradient}">
+    <!--  סטיילים רק לדף הנוכחי, אפשר ורצוי להעביר לסטיילים כלליים  -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!--  לדוגמא: מידות  -->
+            <x:Double x:Key="HeightEldan">75</x:Double>
+            <!--  לדוגמא לכפתור  -->
+            <Style x:Key="LocalEldanButton" TargetType="Button">
+
+                <Setter Property="BorderWidth" Value="3" />
+                <Setter Property="BorderColor" Value="AliceBlue" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="FontSize" Value="22" />
+                <Setter Property="TextColor" Value="AliceBlue" />
+                <Setter Property="BackgroundColor" Value="#ff3366" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+
+
+    <VerticalStackLayout Style="{StaticResource DefaultLayout}">
+
+        <!--  כותרת  -->
+
+        <Image Source="logo.png" />
+        <Label
+            Style="{StaticResource HeaderLabel}"
+            Text="iBand"
+            TextColor="{StaticResource SecondaryColor}" />
+        <Label
+            FontSize="Medium"
+            HorizontalOptions="Center"
+            Text="בנה ת'בנד"
+            TextColor="{StaticResource SecondaryColor}" />
+        <Label Style="{StaticResource HeaderLabel}" Text="כניסה" />
+
+        <!--  שם משתמש  -->
+        <Entry Placeholder="שם משתמש" Text="{Binding UserName}" />
+
+        <!--  סיסמה עם כפתור צפייה  -->
+
+        <Grid
+            Padding="0"
+            ColumnDefinitions="*,Auto"
+            VerticalOptions="Center">
+            <Entry
+                IsPassword="{Binding IsPassword}"
+                Placeholder="סיסמה"
+                Text="{Binding Password}" />
+            <Button
+                Margin="5,0,0,0"
+                Padding="0"
+                BackgroundColor="Transparent"
+                Command="{Binding ShowPasswordCommand}"
+                FontFamily="MaterialSymbols"
+                FontSize="24"
+                HorizontalOptions="End"
+                Text="{Binding IsPassword, Converter={converters:BoolToIconConverter}}"
+                VerticalOptions="Center" />
+        </Grid>
+
+
+        <!--  כפתור כניסה  -->
+        <Button
+            Command="{Binding LoginCommand}"
+            HeightRequest="{x:StaticResource HeightEldan}"
+            Style="{StaticResource EldanButton}"
+            Text="כניסה" />
+        <!--  שגיאה  -->
+        <Label
+            IsVisible="{Binding MessageIsVisible}"
+            Style="{StaticResource MessageLabel}"
+            Text="{Binding LoginMessage}"
+            TextColor="{Binding MessageColor}" />
+        <Button
+            BackgroundColor="Transparent"
+            Command="{Binding LinkRegisterCommand}"
+            Text="אין לך עדיין חשבון?" />
+    </VerticalStackLayout>
+</ContentPage>
+

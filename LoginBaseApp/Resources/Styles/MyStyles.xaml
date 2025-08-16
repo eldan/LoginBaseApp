@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xaml-comp compile="true"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ResourceDictionary>
+
+        <Color x:Key="DefaultTextColor">#333333</Color>
+        <Color x:Key="PrimaryColor">#ff3366</Color>
+        <Color x:Key="SecondaryColor">#28d5c4</Color>
+
+        <Style x:Key="EldanButton" TargetType="Button">
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            <Setter Property="BorderWidth" Value="3" />
+            <Setter Property="BorderColor" Value="AliceBlue" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="TextColor" Value="AliceBlue" />
+            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+
+
+
+
+
+
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="LightPink" />
+                                <Setter Property="TextColor" Value="#111111" />
+                                <Setter Property="BorderColor" Value="Gray" />
+                                <Setter Property="Opacity" Value="0.5" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ButtonNoBg" TargetType="Button">
+
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="TextColor" Value="{StaticResource SecondaryColor}" />
+        </Style>
+        <Style TargetType="Entry">
+
+            <Setter Property="PlaceholderColor" Value="{StaticResource SecondaryColor}" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="TextColor" Value="{StaticResource DefaultTextColor}" />
+            <Setter Property="BackgroundColor" Value="White" />
+        </Style>
+
+        <Style x:Key="BGPageGradient" TargetType="ContentPage">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Offset="0.0" Color="{StaticResource PrimaryColor}" />
+                        <GradientStop Offset="1.0" Color="{StaticResource SecondaryColor}" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="MessageLabel" TargetType="Label">
+            <Setter Property="BackgroundColor" Value="#66ffffff" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+        </Style>
+        <Style
+            x:Key="MessageLabelError"
+            BasedOn="{StaticResource MessageLabel}"
+            TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource PrimaryColor}" />
+
+
+        </Style>
+
+        <Style x:Key="HeaderLabel" TargetType="Label">
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="TextColor" Value="white" />
+            <Setter Property="FontSize" Value="32" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+
+        <Style x:Key="DefaultLayout" TargetType="VerticalStackLayout">
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="Spacing" Value="10" />
+            <Setter Property="Padding" Value="30,00,30,30" />
+        </Style>
+
+    </ResourceDictionary>
+
+</ResourceDictionary>
